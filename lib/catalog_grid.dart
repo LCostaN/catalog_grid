@@ -7,16 +7,21 @@ import 'package:flutter/material.dart';
 class CatalogGrid extends StatefulWidget {
   CatalogGrid({
     Key key,
-    this.images,
-    this.contents,
+    @required this.images,
+    @required this.contents,
     this.cardOptions,
     @required this.itemCount,
-    this.childWidth,
+    this.childWidth = 300,
     this.horizontalCount,
-    this.horizontalMargin,
-    this.verticalMargin,
+    this.horizontalMargin = 8.0,
+    this.verticalMargin = 8.0,
+    this.aspectRatio = 0.6,
   })  : assert(itemCount != null && itemCount > 0),
         assert(childWidth != null || horizontalCount != null),
+        assert(images.length == itemCount && contents.length == itemCount),
+        assert(cardOptions == null ||
+            cardOptions.isEmpty ||
+            cardOptions.length == itemCount),
         super(key: key);
 
   /// List of Widgets to use in the top part of the card. If empty, use
@@ -48,6 +53,9 @@ class CatalogGrid extends StatefulWidget {
   /// Vertical Spacing.
   final double verticalMargin;
 
+  /// Child Aspect Ratio. Defaults to 0.6.
+  final double aspectRatio;
+
   @override
   _CatalogGridState createState() => _CatalogGridState();
 }
@@ -56,8 +64,11 @@ class _CatalogGridState extends State<CatalogGrid> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: widget.childWidth,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount(context),
+        crossAxisSpacing: widget.horizontalMargin,
+        mainAxisSpacing: widget.verticalMargin,
+        childAspectRatio: widget.aspectRatio,
       ),
       itemCount: widget.itemCount,
       itemBuilder: (context, i) => CatalogCard(
@@ -67,4 +78,8 @@ class _CatalogGridState extends State<CatalogGrid> {
       ),
     );
   }
+
+  int crossAxisCount(BuildContext context) =>
+      widget.horizontalCount ??
+      (MediaQuery.of(context).size.width / widget.childWidth).floor();
 }
