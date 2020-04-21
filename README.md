@@ -1,10 +1,12 @@
-# LOGIN_SCREEN
+# CATALOG_GRID
 
 This package provides a common template for Catalog Grids, using cards and other
 Flutter widgets.
 
 This project should be incremented as I personally feel the need to. If you have
 a common usecase and feel like creating a template for it, please send me a PR.
+
+[![Donate with Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=B8ST4MMXWBQJ8&currency_code=BRL&source=url)
 
 ## Usage 
 To use this package, add catalog_grid as a dependency in your pubspec.yaml file.
@@ -94,4 +96,4 @@ class MyApp extends StatelessWidget {
 ```
 
 ## Status
-This package is in it's initial stages and help from other devs would be much appreciated.
+This package is in it's initial stages. Helpful PRs are very welcome.
